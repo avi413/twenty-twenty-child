@@ -314,6 +314,49 @@ function display_rel_products( $content ){
 }
 //END  --------------add related product
 
+
+/**
+ * [boxed] returns the HTML code for a content box with colored titles.
+ * @return string HTML code for boxed content
+*/
+
+add_shortcode( 'product_box', 'product_box_shortcode' );
+
+function product_box_shortcode( $atts ) {
+ $a = shortcode_atts( array(
+  'bg_color' => 'white',
+ 'product_id' => 'Title',
+ ), $atts );
+
+
+	
+	$youtubeframe = '<iframe id="youtube" width="100" height="100" src="'.$videourl.'"></iframe>';
+    
+
+	
+	$content_product = get_post($a['product_id']);
+	
+	$price = get_post_meta($content_product->ID,'price',true);
+	$sale_price = get_post_meta($content_product->ID,'sale_price',true);
+	$isonsale = get_post_meta($content_product->ID,'is_on_sale',true);
+		$output = '<div class="product-box" style="border:2px solid; text-align: center; background-color:' . esc_attr( $a['bg_color'] ) . ';"' . esc_attr( $a['bg_color'] ) . ';">';
+		$output = $output .'<div class="box-title" >';
+		$output = $output .'<h3 style="color:black;"><a href="'.get_permalink($a['product_id']).'">' . esc_attr( $content_product->post_title ) . '</a></h3>';
+		$output = $output .'</div>'.'<div class="box-content"><p>' . esc_attr( $content_product->post_content) . '</p>';
+		$output = $output .'</div>'.'<div class="box-content display: inline;"><img style="display:inline;" src="' .  get_the_post_thumbnail_url($content_product) . '">';
+		if($isonsale)
+		{
+			$output =  $output. '<p>sale price: ' .$sale_price . '$</p>';
+			$line = 'style="text-decoration: line-through;"';
+		}
+		$output 	= $output. '<p '.$line.'>Full price: ' .$price . '$</p></div>';	
+		$output = $output .'</div>';
+	
+ return $output;
+}
+
+
+
 //STAT  --------------add admin scripts
 function child_theme_admin_scripts() {
 
