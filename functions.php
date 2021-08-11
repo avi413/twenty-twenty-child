@@ -54,7 +54,7 @@ add_action('after_setup_theme', 'disable_editor_admin_bar');
 //Add 6 products on theme switch from demodata.php
 add_action('after_switch_theme', 'init_sixproduct');
 
-//STAT --------------add product CPT
+//START --------------add product CPT
 add_action( 'init', 'products_posttype' );
 function products_posttype() {
     // Products Options
@@ -80,7 +80,7 @@ function products_posttype() {
 }
 //END --------------add product CPT
 
-//STAT --------------add product meta box
+//START --------------add product meta box
 add_action("admin_init", "init_meta_box");
 function init_meta_box(){
 	  add_meta_box('product_meta_box', // meta box ID
@@ -92,7 +92,7 @@ function init_meta_box(){
 }
 //END --------------add product meta box
 
-//STAT --------------add product meta data
+//START --------------add product meta data
 function product_meta_data() {
   global $post;
   $custom = get_post_custom($post->ID);
