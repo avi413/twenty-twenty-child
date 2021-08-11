@@ -315,11 +315,8 @@ function display_rel_products( $content ){
 //END  --------------add related product
 
 
-/**
- * [boxed] returns the HTML code for a content box with colored titles.
- * @return string HTML code for boxed content
-*/
 
+//STAT  --------------shortcode returns the HTML boxwith product data.
 add_shortcode( 'product_box', 'product_box_shortcode' );
 
 function product_box_shortcode( $atts ) {
@@ -354,7 +351,7 @@ function product_box_shortcode( $atts ) {
 	
  return $output;
 }
-
+//EMD  --------------shortcode returns the HTML boxwith product data.
 
 
 //STAT  --------------add admin scripts
