@@ -378,8 +378,71 @@ function address_mobile_address_bar() {
 	echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">';
 }
 add_action( 'wp_head', 'address_mobile_address_bar' );
-//STAT  --------------color mobile address bar
+//END  --------------color mobile address bar
 
+
+//STAT  --------------inint json API
+add_action('rest_api_init', function () {
+  register_rest_route( 'twentytwent-child/v1', 'product-list/(?P<category>\w+)',array(
+                'methods'  => 'GET',
+                'callback' => 'product_list_func'
+      ));
+});
+
+
+function product_list_func($request) {
+
+	// going to hold our tax_query params
+	$cat = $request['category'];
+	if(is_numeric($cat))
+	{
+		$tax_query[] = array(
+			'taxonomy' => 'Categories',
+			'field' => 'term_id',
+			'terms' => $cat,
+		);
+	}
+	else
+	{
+		$tax_query[] = array(
+			'taxonomy' => 'Categories',
+			'field' => 'slug',
+			'terms' => $cat,
+		);
+	}	
+
+	// put all the WP_Query args together
+	$args = array( 'post_type' => 'products',
+					'posts_per_page' => -1,
+					'tax_query' => $tax_query );
+
+		
+		
+	$posts = get_posts($args);
+	if (empty($posts)) {
+		return new WP_Error( 'empty_category', 'There are no product to display', array('status' => 404) );
+	}
+
+	$out_post  = array();
+
+	foreach( $posts as $post ) {
+		
+		$out_post[] = array(
+			'title' => $post->post_title,
+			'description' => $post->post_content,
+			'image' => get_the_post_thumbnail_url($post->ID),
+			'price' => get_post_meta($post->ID,'price',true),
+			'is_on_sale' => get_post_meta($post->ID,'is_on_sale',true),
+			'sale_price' => get_post_meta($post->ID,'sale_price',true),
+		);
+	}
+
+	$response = new WP_REST_Response($out_post);
+    $response->set_status(200);
+	
+    return $response;	
+}
+//END  --------------inint json API
 
 //STAT  --------------add admin scripts
 function child_theme_admin_scripts() {
