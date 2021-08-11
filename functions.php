@@ -353,6 +353,33 @@ function product_box_shortcode( $atts ) {
 }
 //EMD  --------------shortcode returns the HTML boxwith product data.
 
+//STAT  --------------custom filter
+add_filter('do_shortcode_tag','customfilter',10,3);
+
+function customfilter($output, $tag, $attr)
+{
+  if('product_box' != $tag){ //make sure it is the right shortcode
+    return $output;
+  }
+  $output = '<p style="text-align:center;" center;>here is the overridden value</p>'; 
+  return $output;
+}
+//STAT  --------------custom filter
+
+//STAT  --------------color mobile address bar
+function address_mobile_address_bar() {
+	$color = "#dc516a";
+	//this is for Chrome, Firefox OS, Opera and Vivaldi
+	echo '<meta name="theme-color" content="'.$color.'">';
+	//Windows Phone **
+	echo '<meta name="msapplication-navbutton-color" content="'.$color.'">';
+	// iOS Safari
+	echo '<meta name="apple-mobile-web-app-capable" content="yes">';
+	echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">';
+}
+add_action( 'wp_head', 'address_mobile_address_bar' );
+//STAT  --------------color mobile address bar
+
 
 //STAT  --------------add admin scripts
 function child_theme_admin_scripts() {
