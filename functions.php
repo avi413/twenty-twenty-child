@@ -51,10 +51,10 @@ add_action('after_setup_theme', 'disable_editor_admin_bar');
 *Part 4 - Product Post Types
 */
 
-//Add 6 products on theme switch from demo data.php
+//Add 6 products on theme switch from demodata.php
 add_action('after_switch_theme', 'init_sixproduct');
 
-//STAT --------------add product CTP
+//STAT --------------add product CPT
 add_action( 'init', 'products_posttype' );
 function products_posttype() {
     // Products Options
@@ -78,7 +78,7 @@ function products_posttype() {
 
 
 }
-//END --------------add product CTP
+//END --------------add product CPT
 
 //STAT --------------add product meta box
 add_action("admin_init", "init_meta_box");
@@ -121,7 +121,7 @@ function product_meta_data() {
 }
 //END --------------add product meta data
 
-//STAT --------------upload images
+//START --------------upload images
 function image_uploader( $name, $value = '' ) {
      
 $html = '<div><ul class="gallery_mtb">';
@@ -153,7 +153,7 @@ $html = '<div><ul class="gallery_mtb">';
 }
 //END --------------upload images
 
-//STAT --------------save product metadata
+//START --------------save product metadata
 add_action('save_post', 'save_product_details', 100, 3);
 function save_product_details($post_id, $post, $update){
 	if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
@@ -177,7 +177,7 @@ function save_product_details($post_id, $post, $update){
 }
 //END --------------save product metadata
 
-//STAT --------------Add product grit to home page
+//START --------------Add product grid to home page
 add_action( 'pre_get_posts', 'add_product_to_home' );
 
 function add_product_to_home( $query ) {
@@ -210,15 +210,15 @@ function add_product_to_home( $query ) {
 			
     }
 }
-//END --------------Add product grit to home page
+//END --------------Add product grid to home page
 
 
-//STAT  --------------add metadata to single product
+//START  --------------add metadata to single product
 add_filter( 'the_content', 'display_metadata_after_product_description',5, 1 );
 
 function display_metadata_after_product_description( $content ){
 	
-    // Only for CTP single product  pages
+    // Only for CPT single product  pages
     if( ! is_singular('products') ) 
 		return $content;
 	
@@ -263,7 +263,7 @@ add_filter( 'the_content', 'display_rel_products', 10, 1 );
 
 function display_rel_products( $content ){
 	
-    // Only for CTP single product  pages
+    // Only for CPT single product  pages
     if( ! is_singular('products') ) 
 		return $content;
 	
@@ -316,7 +316,7 @@ function display_rel_products( $content ){
 
 
 
-//STAT  --------------shortcode returns the HTML boxwith product data.
+//START  --------------shortcode returns the HTML box with product data.
 add_shortcode( 'product_box', 'product_box_shortcode' );
 
 function product_box_shortcode( $atts ) {
@@ -351,9 +351,9 @@ function product_box_shortcode( $atts ) {
 	
  return $output;
 }
-//EMD  --------------shortcode returns the HTML boxwith product data.
+//EMD  --------------shortcode returns the HTML box with product data.
 
-//STAT  --------------custom filter
+//START  --------------custom filter
 add_filter('do_shortcode_tag','customfilter',10,3);
 
 function customfilter($output, $tag, $attr)
@@ -364,9 +364,9 @@ function customfilter($output, $tag, $attr)
   $output = '<p style="text-align:center;" center;>here is the overridden value</p>'; 
   return $output;
 }
-//STAT  --------------custom filter
+//START  --------------custom filter
 
-//STAT  --------------color mobile address bar
+//START  --------------color mobile address bar
 function address_mobile_address_bar() {
 	$color = "#dc516a";
 	//this is for Chrome, Firefox OS, Opera and Vivaldi
@@ -375,13 +375,13 @@ function address_mobile_address_bar() {
 	echo '<meta name="msapplication-navbutton-color" content="'.$color.'">';
 	// iOS Safari
 	echo '<meta name="apple-mobile-web-app-capable" content="yes">';
-	echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">';
+	echo '<meta name="apple-mobile-web-app-STARTus-bar-style" content="black-translucent">';
 }
 add_action( 'wp_head', 'address_mobile_address_bar' );
 //END  --------------color mobile address bar
 
 
-//STAT  --------------inint json API
+//START  --------------init json API
 add_action('rest_api_init', function () {
   register_rest_route( 'twentytwent-child/v1', 'product-list/(?P<category>\w+)',array(
                 'methods'  => 'GET',
@@ -420,7 +420,7 @@ function product_list_func($request) {
 		
 	$posts = get_posts($args);
 	if (empty($posts)) {
-		return new WP_Error( 'empty_category', 'There are no product to display', array('status' => 404) );
+		return new WP_Error( 'empty_category', 'There are no product to display', array('STARTus' => 404) );
 	}
 
 	$out_post  = array();
@@ -438,13 +438,13 @@ function product_list_func($request) {
 	}
 
 	$response = new WP_REST_Response($out_post);
-    $response->set_status(200);
+    $response->set_STARTus(200);
 	
     return $response;	
 }
-//END  --------------inint json API
+//END  --------------init json API
 
-//STAT  --------------add admin scripts
+//START  --------------add admin scripts
 function child_theme_admin_scripts() {
 
 	if ( ! did_action( 'wp_enqueue_media' ) )
