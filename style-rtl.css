@@ -1,12 +1,3 @@
-/* 
-Theme Name: Twenty Twenty Child 
-Description: Twenty Twenty Child 
-Author: Avi Dalal
-Template: twentytwenty
-Version: 1.0.0 
-Text Domain: twentytwenty-child 
-*/
-
 /* Grid style */
 .display-posts-listing.grid {
 	display: grid;
@@ -42,14 +33,14 @@ Text Domain: twentytwenty-child
 	}
 
 	.display-posts-listing.grid .listing-item {
-		float: right;
+		float: left;
 		width: 70%;
-		margin-right: 2%;
+		margin-left: 2%;
 	}
 
 	.display-posts-listing.grid .listing-item:nth-child(3n+1) {
 		clear: both;
-		margin-right: 0;
+		margin-left: 0;
 	}
 	.display-posts-listing.grid {
 		padding: 30px 20%;
@@ -75,8 +66,8 @@ iframe {
 }
 
 img.attachment-medium.size-medium.wp-post-image {
-    height: 200px;
-	padding-left: 5%!important;
+    height: 500px;
+	padding-right: 5%!important;
 	padding-bottom: 20px;
 }
 p.product-title {
@@ -89,5 +80,5 @@ img.galery-item {
     width: 200px;
 }
 div.rel-product{
-    padding-left: 10%!important;
+    padding-right: 10%!important;
 }
