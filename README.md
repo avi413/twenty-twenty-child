@@ -26,9 +26,9 @@ You can download the [installable theme ZIP package](https://github.com/avi413/t
 ### what will this child theme do?
 
 1. Create a new editor user.
-2. create a new `product` post type.
-3. create 6 demo product items.
-4. create a shortcode to display box of product for Example : `[product_box bg_color=#7ac4f3 product_id=3279 ]`
-5. have custom filter to overide the shortcode output
-6. mobile address bar colored by #7ac4f3
-7. custom jason api  to get list of product from given category name/id  Use -   `http://<wehbhost>/devtest/wp-json/twentytwent-child/v1/product-list/<category ID/name>`
+2. Create a new `product` post type.
+3. Create 6 demo product items.
+4. Create a shortcode to display box of product for Example : `[product_box bg_color=#7ac4f3 product_id=3279 ]`
+5. Have custom filter to overide the shortcode output
+6. Mobile address bar colored by #7ac4f3
+7. Custom jason api  to get list of product from given category name/id  Use -   `http://<wehbhost>/devtest/wp-json/twentytwent-child/v1/product-list/<category ID/name>`
