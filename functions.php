@@ -195,11 +195,12 @@ function add_product_to_home( $query ) {
 		<?php if( $the_query->have_posts() ): ?>
 
 			<div class="display-posts-listing grid">
-			<?php while ( $the_query->have_posts() ) : $the_query->the_post(); $id = get_the_ID();?>
-				<div class="listing-item">
+			<?php while ( $the_query->have_posts() ) : $the_query->the_post(); $id = get_the_ID(); $isonsale = get_post_meta($id,'is_on_sale',true);?>
+				<div class="listing-item" style="text-align:center;">
 					<a class="image" href="<?php echo get_the_post_thumbnail_url();  ?>">
 					<img  src="<?php echo get_the_post_thumbnail_url();  ?>" class="attachment-medium size-medium wp-post-image" alt="" ></a> 
-					<a class="title" href="<?php echo the_permalink();  ?>"><?php the_title(); ?></a>
+					<a class="title" href="<?php echo the_permalink();  ?>"><?php the_title();?></a><?php if($isonsale) : ?></<span > on sale</span><?php  endif; ?>
+					
 				</div>	
 			<?php endwhile; ?>
 			</div>
@@ -276,7 +277,7 @@ function display_rel_products( $content ){
 	
 	// add the relation parameter
 	if( count( $custom_terms) > 1  )
-		$tax_query['relation'] = 'OR' ;
+		$tax_query['relation'] = 'or' ;
 
 	// loop through Categories and build a tax query
 	foreach( $custom_terms as $category ) {
@@ -292,6 +293,7 @@ function display_rel_products( $content ){
 	// put all the WP_Query args together
 	$args = array( 'post_type' => 'products',
 					'posts_per_page' => 5,
+					'post__not_in'   => array(get_the_ID()),
 					'tax_query' => $tax_query );
 
 	// finally run the query
@@ -375,7 +377,7 @@ function address_mobile_address_bar() {
 	echo '<meta name="msapplication-navbutton-color" content="'.$color.'">';
 	// iOS Safari
 	echo '<meta name="apple-mobile-web-app-capable" content="yes">';
-	echo '<meta name="apple-mobile-web-app-STARTus-bar-style" content="black-translucent">';
+	echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">';
 }
 add_action( 'wp_head', 'address_mobile_address_bar' );
 //END  --------------color mobile address bar
@@ -420,7 +422,7 @@ function product_list_func($request) {
 		
 	$posts = get_posts($args);
 	if (empty($posts)) {
-		return new WP_Error( 'empty_category', 'There are no product to display', array('STARTus' => 404) );
+		return new WP_Error( 'empty_category', 'There are no product to display', array('status' => 404) );
 	}
 
 	$out_post  = array();
@@ -438,7 +440,7 @@ function product_list_func($request) {
 	}
 
 	$response = new WP_REST_Response($out_post);
-    $response->set_STARTus(200);
+    $response->set_status(200);
 	
     return $response;	
 }

@@ -19,25 +19,100 @@ function init_sixproduct()
 	}
 
 	
-	for($i = 0; $i < 6; $i++){
-		products_creator('product'.$i,
+		//create product 1
+		products_creator('product1',
 		'products',
 		'Solitary bone cyst unspecified tibia and fibula',
 		'1',
 		'publish',
 		'50',
 		'45',
+		true,
 		'https://www.youtube.com/embed/JdHCWQM0bD0',
 		implode(",",$attids),
-		$attids[$i],
+		$attids[1],
 		'cat1',
 		'cat2'
 		);
-	}
+		//create product 2
+		products_creator('product2',
+		'products',
+		'Solitary bone cyst unspecified tibia and fibula',
+		'1',
+		'publish',
+		'50',
+		'45',
+		false,
+		'https://www.youtube.com/embed/JdHCWQM0bD0',
+		implode(",",$attids),
+		$attids[2],
+		'cat2',
+		'cat3'
+		);
+		//create product 3
+		products_creator('product3',
+		'products',
+		'Solitary bone cyst unspecified tibia and fibula',
+		'1',
+		'publish',
+		'43',
+		'40',
+		true,
+		'https://www.youtube.com/embed/JdHCWQM0bD0',
+		implode(",",$attids),
+		$attids[3],
+		'cat3',
+		'cat4'
+		);
+		//create product 4
+		products_creator('product4',
+		'products',
+		'Solitary bone cyst unspecified tibia and fibula',
+		'1',
+		'publish',
+		'23',
+		'14',
+		false,
+		'https://www.youtube.com/embed/JdHCWQM0bD0',
+		implode(",",$attids),
+		$attids[4],
+		'cat3',
+		'cat5'
+		);
+		//create product 5
+		products_creator('product5',
+		'products',
+		'Solitary bone cyst unspecified tibia and fibula',
+		'1',
+		'publish',
+		'87',
+		'67',
+		false,
+		'https://www.youtube.com/embed/JdHCWQM0bD0',
+		implode(",",$attids),
+		$attids[5],
+		'cat5',
+		'cat4'
+		);
+		//create product 6
+		products_creator('product6',
+		'products',
+		'Solitary bone cyst unspecified tibia and fibula',
+		'1',
+		'publish',
+		'34',
+		'22',
+		true,
+		'https://www.youtube.com/embed/JdHCWQM0bD0',
+		implode(",",$attids),
+		$attids[6],
+		'cat4',
+		'cat1'
+		);		
 }
 //END --------------Add 6 products on theme switch
 
-//STAT --------------create product function
+//START --------------create product function
 function products_creator(
 	$title      		= 'AUTO POST',
 	$type     			= 'products',
@@ -46,6 +121,7 @@ function products_creator(
 	$status    			= 'publish',
 	$price				= NULL,
 	$sale_price			= NULL,
+	$is_on_sale			= NULL,
 	$youtube_video		= NULL,
 	$product_galery		= NULL,
 	$thumbnail_id		= NULL,
@@ -75,6 +151,7 @@ function products_creator(
 		//add product meta data
 		update_post_meta($post_id, "price", $price);
 		update_post_meta($post_id, "sale_price", $sale_price);
+		update_post_meta($post_id, "is_on_sale", $is_on_sale);
 		update_post_meta($post_id, "youtube_video", $youtube_video);
 		update_post_meta($post_id, "product_galery", $product_galery );
 		update_post_meta($post_id, '_thumbnail_id', $thumbnail_id );
@@ -91,7 +168,7 @@ function products_creator(
 }
 //END --------------create product function
 
-//STAT --------------upload image from url
+//START --------------upload image from url
 function upload_image_from_url($imageurl)
 {	
 
